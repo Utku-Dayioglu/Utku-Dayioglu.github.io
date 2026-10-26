@@ -27,6 +27,22 @@ const translations = {
     "skills.title": "Yetenekler",
     "skills.llm": "LLM (Büyük Dil Modelleri)",
     "skills.cv": "Görüntü İşleme",
+    "notfound.title": "Sayfa bulunamadı",
+    "notfound.text": "Aradığın sayfa taşınmış ya da hiç var olmamış olabilir.",
+    "notfound.back": "Ana sayfaya dön",
+
+    "skills.languages": "Diller",
+    "skills.turkish": "Türkçe (ana dil)",
+    "skills.english": "İngilizce (B1)",
+
+    // {p}, {d}, {date} gibi süslü parantezli yerler script.js tarafından doldurulur
+    "education.title": "Eğitim",
+    "education.degree": "Mehmet Akif Ersoy Üniversitesi, Bilgisayar Mühendisliği (lisans)",
+    "education.percent": "%{p}",
+    "education.complete": "tamamlandı",
+    "education.remaining": "· {d} gün kaldı",
+    "education.done": "· mezun",
+    "education.dates": "Başlangıç: {start} · Tahmini mezuniyet: {end}",
 
     "experience.title": "Deneyim",
     "experience.role": "Staj",
@@ -84,6 +100,21 @@ const translations = {
     "skills.title": "Skills",
     "skills.llm": "LLMs (Large Language Models)",
     "skills.cv": "Image Processing",
+    "notfound.title": "Page not found",
+    "notfound.text": "The page you're looking for may have moved or never existed.",
+    "notfound.back": "Back to home",
+
+    "skills.languages": "Languages",
+    "skills.turkish": "Turkish (native)",
+    "skills.english": "English (B1)",
+
+    "education.title": "Education",
+    "education.degree": "Mehmet Akif Ersoy University, B.Sc. in Computer Engineering",
+    "education.percent": "{p}%",
+    "education.complete": "complete",
+    "education.remaining": "· {d} days left",
+    "education.done": "· graduated",
+    "education.dates": "Started: {start} · Expected graduation: {end}",
 
     "experience.title": "Experience",
     "experience.role": "Internship",
@@ -161,6 +192,7 @@ function applyLanguage(lang) {
     btn.setAttribute("aria-pressed", btn.dataset.lang === lang ? "true" : "false");
   });
 
+  updateEducation(lang);   // yüzde ve tarih yazıları da yeni dile geçsin
   saveSetting("lang", lang);
 }
 
@@ -196,6 +228,42 @@ themeButton.addEventListener("click", function () {
   const current = document.documentElement.getAttribute("data-theme");
   applyTheme(current === "dark" ? "light" : "dark");
 });
+
+/* ==========================================================
+   4b. EĞİTİM İLERLEMESİ (mezuniyet çubuğu)
+   Bugünün tarihine göre her sayfa açılışında yeniden hesaplanır;
+   elle güncellemek gerekmez. Tarihleri değiştirmek için aşağıdakini düzenle.
+   Ay 0'dan başlar: 8 = Eylül, 5 = Haziran.
+   ========================================================== */
+
+const EDU_START = new Date(2023, 9, 2);   // başlangıç: 2 Ekim 2023
+const EDU_END = new Date(2027, 5, 18);    // tahmini mezuniyet: 18 Haziran 2027
+
+function updateEducation(lang) {
+  // Bu eleman her sayfada yok (ör. 404 sayfasında); yoksa hiçbir şey yapma
+  if (!document.getElementById("edu-fill")) return;
+
+  const dict = translations[lang];
+  const locale = lang === "tr" ? "tr-TR" : "en-GB";
+
+  // Başlangıçtan bugüne geçen süre / toplam süre, 0 ile 1 arasında tutulur
+  const ratio = Math.min(1, Math.max(0, (Date.now() - EDU_START) / (EDU_END - EDU_START)));
+  const percent = Math.floor(ratio * 100);
+  const daysLeft = Math.max(0, Math.ceil((EDU_END - Date.now()) / 86400000));
+
+  document.getElementById("edu-fill").style.width = percent + "%";
+  document.getElementById("edu-bar").setAttribute("aria-valuenow", percent);
+
+  document.getElementById("edu-percent").textContent = dict["education.percent"].replace("{p}", percent);
+  document.getElementById("edu-remaining").textContent =
+    dict["education.complete"] + " " +
+    (daysLeft > 0 ? dict["education.remaining"].replace("{d}", daysLeft) : dict["education.done"]);
+
+  const start = EDU_START.toLocaleDateString(locale, { month: "long", year: "numeric" });
+  const end = EDU_END.toLocaleDateString(locale, { day: "numeric", month: "long", year: "numeric" });
+  document.getElementById("edu-dates").textContent =
+    dict["education.dates"].replace("{start}", start).replace("{end}", end);
+}
 
 /* ==========================================================
    5. BAŞLATMA

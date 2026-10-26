@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<!--
+  404 sayfası: GitHub Pages, olmayan bir adres açılınca bu dosyayı otomatik gösterir.
+  Adres derinliği değişebileceği için dosya yolları "/" ile başlar (siteyi kökten ara).
+-->
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>404 | Utku</title>
+  <meta name="robots" content="noindex">
+
+  <!-- Tema "çakması"nı önlemek için: sayfa çizilmeden önce kayıtlı/cihaz temasını uygula -->
+  <script>
+    (function () {
+      var theme = null;
+      try { theme = localStorage.getItem('theme'); } catch (e) {}
+      if (!theme) {
+        theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%233B2F2A'/%3E%3Ctext x='32' y='46' font-family='Arial,sans-serif' font-size='40' font-weight='700' text-anchor='middle' fill='%23E08A5C'%3EU%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="/style.css">
+  <script src="/script.js" defer></script>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="controls">
+        <div class="lang-switch" role="group" aria-label="Language">
+          <button type="button" data-lang="tr">TR</button>
+          <button type="button" data-lang="en">EN</button>
+        </div>
+        <button type="button" class="theme-btn" id="theme-toggle"
+                data-i18n-label="theme.toggle"></button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="notfound">
+      <p class="notfound-code" aria-hidden="true">404</p>
+      <h1 data-i18n="notfound.title"></h1>
+      <p data-i18n="notfound.text"></p>
+      <a class="btn" href="/" data-i18n="notfound.back"></a>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; <span id="year"></span> Utku</p>
+    </div>
+  </footer>
+
+</body>
+</html>

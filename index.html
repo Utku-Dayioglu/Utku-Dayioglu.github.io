@@ -93,6 +93,17 @@
       <div class="container">
         <h2 data-i18n="about.title"></h2>
         <p data-i18n="about.text"></p>
+
+        <!-- Mezuniyet çubuğu: yüzde ve kalan gün script.js tarafından her açılışta hesaplanır -->
+        <div class="card edu">
+          <h3 data-i18n="education.title"></h3>
+          <p class="edu-degree" data-i18n="education.degree"></p>
+          <div class="progress" id="edu-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+            <div class="progress-fill" id="edu-fill"></div>
+          </div>
+          <p class="edu-stats"><strong id="edu-percent"></strong> <span id="edu-remaining"></span></p>
+          <p class="note" id="edu-dates"></p>
+        </div>
       </div>
     </section>
 
@@ -105,6 +116,12 @@
           <li>Flutter</li>
           <li data-i18n="skills.llm"></li>
           <li data-i18n="skills.cv"></li>
+        </ul>
+
+        <h3 class="subhead" data-i18n="skills.languages"></h3>
+        <ul class="tags">
+          <li data-i18n="skills.turkish"></li>
+          <li data-i18n="skills.english"></li>
         </ul>
       </div>
     </section>

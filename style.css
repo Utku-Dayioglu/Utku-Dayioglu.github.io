@@ -43,7 +43,7 @@ body {
   margin: 0;
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   font-size: 1.0625rem;         /* 17px: rahat okunur */
-  line-height: 1.7;
+  line-height: 1.75;
   color: var(--text);
   background-color: var(--bg);
   /* Tema değişirken renkler yumuşakça geçsin */
@@ -60,7 +60,7 @@ body {
 
 h1, h2, h3 { line-height: 1.2; margin: 0 0 1rem; }
 h1 { font-size: 2.75rem; letter-spacing: -0.02em; }
-h2 { font-size: 1.5rem; }
+h2 { font-size: 1.65rem; margin-bottom: 1.5rem; letter-spacing: -0.01em; }
 h3 { font-size: 1.15rem; }
 p  { margin: 0 0 1rem; }
 
@@ -184,7 +184,11 @@ main .container { padding: 0; margin: 0; max-width: 48rem; }
   border: 3px solid var(--accent);
 }
 
-.section { padding: 3rem 0; }
+.section { padding: 3.5rem 0; }
+/* Bölümler arasına çok ince ayırıcı çizgi: ritim verir, ilk bölümde görünmez */
+.section + .section { border-top: 1px solid var(--line); }
+/* Uzun paragraflar çok genişlemesin: okuması daha rahat */
+main .section > .container > p { max-width: 38rem; }
 /* Başlığın altına kısa altın çizgi: altın burada yazı değil, süs */
 .section h2::after {
   content: "";
@@ -200,7 +204,7 @@ main .container { padding: 0; margin: 0; max-width: 48rem; }
 .tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: 0.6rem;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -243,6 +247,40 @@ main .container { padding: 0; margin: 0; max-width: 48rem; }
   transform: translateY(-3px);  /* hafif yukarı kalkma */
   border-color: var(--accent);
 }
+
+/* 404 sayfası: ortada büyük kod, mesaj ve geri dön butonu */
+.notfound {
+  max-width: 40rem;
+  margin: 0 auto;
+  padding: 6rem 1.25rem 4rem;
+}
+.notfound-code {
+  margin: 0 0 0.5rem;
+  font-size: 5rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--accent);   /* büyük süs yazısı: iri olduğu için okunur */
+}
+.notfound h1 { font-size: 2rem; }
+
+/* Mezuniyet çubuğu */
+.edu { margin-top: 1.5rem; max-width: 38rem; }
+.edu h3 { margin-bottom: 0.25rem; }
+.edu-degree { margin-bottom: 1rem; font-size: 0.95rem; opacity: 0.85; }
+.progress {
+  height: 0.7rem;
+  background-color: var(--line);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.progress-fill {
+  width: 0;
+  height: 100%;
+  background-color: var(--accent);
+  border-radius: 999px;
+  transition: width 0.8s ease;
+}
+.edu-stats { margin: 0.75rem 0 0.25rem; }
 
 /* Devam eden projeler: alt başlık, geniş kart, durum etiketi */
 .subhead { margin-top: 2.5rem; font-size: 1.15rem; }
@@ -340,7 +378,7 @@ main .container { padding: 0; margin: 0; max-width: 48rem; }
   .nav { order: 0; width: auto; }   /* menü tek satırda, ortada */
 
   .profile { padding: 6rem 0 2rem; }
-  .section { padding: 4rem 0; }
+  .section { padding: 4.5rem 0; }
 
   .project-grid { grid-template-columns: repeat(2, 1fr); }
 }
