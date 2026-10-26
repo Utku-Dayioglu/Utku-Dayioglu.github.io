@@ -37,9 +37,9 @@
   </script>
 
   <!-- ?v=... dosya değişince otomatik güncellenir (commit anında); tarayıcı eski kopyayı kullanmasın diye -->
-  <link rel="stylesheet" href="style.css?v=b4e7fa97">
+  <link rel="stylesheet" href="style.css?v=079e13f4">
   <!-- defer: HTML tamamen okunduktan sonra çalışır, bu yüzden elemanları bulabilir -->
-  <script src="script.js?v=06ef2655" defer></script>
+  <script src="script.js?v=22b79789" defer></script>
 </head>
 <body>
 
@@ -101,6 +101,12 @@
       <div class="container">
         <h2 data-i18n="about.title"></h2>
         <p data-i18n="about.text"></p>
+
+        <!-- Sayaçlar: proje sayıları script.js tarafından sayfadan sayılır (yeni proje eklenince kendiliğinden güncellenir) -->
+        <ul class="stats">
+          <li><strong id="stat-done">0</strong><span data-i18n="stats.done"></span></li>
+          <li><strong id="stat-ongoing">0</strong><span data-i18n="stats.ongoing"></span></li>
+        </ul>
 
         <!-- Mezuniyet çubuğu: yüzde ve kalan gün script.js tarafından her açılışta hesaplanır -->
         <div class="card edu">

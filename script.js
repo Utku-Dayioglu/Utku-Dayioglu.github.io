@@ -35,6 +35,9 @@ const translations = {
     "skills.turkish": "Türkçe (ana dil)",
     "skills.english": "İngilizce (B1)",
 
+    "stats.done": "Tamamlanan proje",
+    "stats.ongoing": "Devam eden proje",
+
     // {p}, {d}, {date} gibi süslü parantezli yerler script.js tarafından doldurulur
     "education.title": "Eğitim",
     "education.degree": "Mehmet Akif Ersoy Üniversitesi, Bilgisayar Mühendisliği (lisans)",
@@ -107,6 +110,9 @@ const translations = {
     "skills.languages": "Languages",
     "skills.turkish": "Turkish (native)",
     "skills.english": "English (B1)",
+
+    "stats.done": "Completed projects",
+    "stats.ongoing": "Projects in progress",
 
     "education.title": "Education",
     "education.degree": "Mehmet Akif Ersoy University, B.Sc. in Computer Engineering",
@@ -277,6 +283,20 @@ document.querySelectorAll(".lang-switch button").forEach(function (btn) {
 
 applyLanguage(getInitialLanguage());
 applyTheme(getInitialTheme());
+
+// Sayaçlar: proje kartlarını sayar. "Devam ediyor" etiketli (.badge) kartlar devam eden sayılır.
+function updateStats() {
+  const done = document.getElementById("stat-done");
+  if (!done) return;   // bu sayfada sayaç yok (ör. 404 sayfası)
+
+  const cards = document.querySelectorAll("#projects .card");
+  let ongoing = 0;
+  cards.forEach(function (card) { if (card.querySelector(".badge")) ongoing++; });
+
+  done.textContent = cards.length - ongoing;
+  document.getElementById("stat-ongoing").textContent = ongoing;
+}
+updateStats();
 
 // Alt bilgideki yılı otomatik yaz
 document.getElementById("year").textContent = new Date().getFullYear();
