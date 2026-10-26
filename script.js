@@ -14,7 +14,7 @@ const translations = {
     "nav.contact": "İletişim",
 
     "skip": "İçeriğe geç",
-    "hero.cta": "Projelerime göz at",
+    "profile.school": "Mehmet Akif Ersoy Üniversitesi, Bilgisayar Mühendisliği (son sınıf)",
     "hero.hello": "Merhaba, ben",
     "hero.tagline": "Kendini geliştirmek isteyen bir bilgisayar mühendisliği öğrencisi.",
 
@@ -36,6 +36,23 @@ const translations = {
 
     "projects.title": "Projeler",
     "projects.view": "GitHub'da görüntüle",
+    "projects.ongoing": "Devam eden projeler",
+    "project.badge": "Devam ediyor",
+    "project2.title": "LLM Destekli Antrenman Programı Üreticisi",
+    "project2.desc":
+      "Kullanıcının hedefine, seviyesine, ekipmanına ve haftada gelebileceği gün sayısına göre, " +
+      "büyük dil modeliyle (LLM) kişiye özel haftalık antrenman programı üreten bir uygulama. " +
+      "Üretilen program, kas dinlenmesi ve haftalık set sınırı kurallarına uygunluk açısından " +
+      "kural tabanlı bir doğrulayıcıyla kontrol ediliyor.",
+    "project2.tag.validator": "Kural tabanlı doğrulayıcı",
+    "project2.tag.streamlit": "Streamlit (planlanan arayüz)",
+    "project2.note": "Kod şimdilik özel (private) bir depoda tutuluyor.",
+    "project3.title": "Clash Royale Meta Analizörü ve Deste Asistanı",
+    "project3.desc":
+      "Supercell API üzerinden dünya sıralamasındaki en iyi oyuncuların güncel meta destelerini çeken, " +
+      "varyasyon filtrelemesi yapan ve oyuncunun kendi kart envanteri ile joker havuzunu eşleştirerek " +
+      "maksimum seviye yükseltme maliyetlerini hesaplayan akıllı bir uygulama.",
+    "project3.note": "Kod şimdilik özel (private) bir depoda tutuluyor.",
     "project1.title": "Beslenme Sayacı",
     "project1.desc":
       "Flutter ile geliştirilmiş bir beslenme takibi mobil uygulaması. Staj projem olarak geliştirdim.",
@@ -54,7 +71,7 @@ const translations = {
     "nav.contact": "Contact",
 
     "skip": "Skip to content",
-    "hero.cta": "View my projects",
+    "profile.school": "Mehmet Akif Ersoy University, Computer Engineering (final year)",
     "hero.hello": "Hi, I'm",
     "hero.tagline": "A computer engineering student eager to keep growing.",
 
@@ -76,6 +93,23 @@ const translations = {
 
     "projects.title": "Projects",
     "projects.view": "View on GitHub",
+    "projects.ongoing": "Work in progress",
+    "project.badge": "In progress",
+    "project2.title": "LLM-Powered Workout Program Generator",
+    "project2.desc":
+      "An application that uses a large language model (LLM) to generate a personalized weekly " +
+      "workout program based on the user's goal, level, available equipment and the number of days " +
+      "they can train each week. The generated program is checked by a rule-based validator for " +
+      "muscle recovery and weekly set-limit rules. This is my graduation thesis project, currently in development.",
+    "project2.tag.validator": "Rule-based validator",
+    "project2.tag.streamlit": "Streamlit (planned UI)",
+    "project2.note": "The code is currently kept in a private repository.",
+    "project3.title": "Clash Royale Meta Analyzer and Deck Assistant",
+    "project3.desc":
+      "A smart application that pulls the current meta decks of the top-ranked players worldwide " +
+      "through the Supercell API, filters deck variations, and matches the player's own card inventory " +
+      "with their wild card pool to calculate the maximum upgrade costs.",
+    "project3.note": "The code is currently kept in a private repository.",
     "project1.title": "Beslenme Sayacı (Nutrition Tracker)",
     "project1.desc":
       "A nutrition-tracking mobile app built with Flutter. I developed it as my internship project.",
@@ -215,6 +249,13 @@ if ("IntersectionObserver" in window) {
   }, { rootMargin: "-40% 0px -55% 0px" }); // ekranın ortasındaki bölümü say
 
   document.querySelectorAll("main section[id]").forEach(function (s) { navObserver.observe(s); });
+
+  // Sayfanın en üstündeyken (profil/giriş alanı) menüde hiçbir bölüm vurgulu olmasın
+  window.addEventListener("scroll", function () {
+    if (window.scrollY < 100) {
+      navLinks.forEach(function (link) { link.setAttribute("aria-current", "false"); });
+    }
+  }, { passive: true });
 } else {
   // Eski tarayıcıda hiçbir şeyi gizlemeyelim
   document.documentElement.classList.remove("js");

@@ -41,8 +41,6 @@
   <!-- Üst alan: isim, menü ve ayar butonları -->
   <header class="site-header">
     <div class="container header-inner">
-      <a class="brand" href="#top">Utku</a>
-
       <nav class="nav" aria-label="Main">
         <a href="#about" data-i18n="nav.about"></a>
         <a href="#skills" data-i18n="nav.skills"></a>
@@ -64,20 +62,31 @@
     </div>
   </header>
 
-  <main id="top">
+  <!--
+    .layout: geniş ekranda iki sütun (solda içerik, sağda profil kartı),
+    telefonda tek sütun (önce profil, sonra içerik).
+    HTML'de profil önce yazıldığı için telefonda doğal olarak en üstte çıkar.
+  -->
+  <div class="layout">
 
-    <!-- 1. Giriş -->
-    <section class="hero">
-      <div class="container">
-        <p class="eyebrow" data-i18n="hero.hello"></p>
-        <h1>Utku</h1>
-        <p class="lead" data-i18n="hero.tagline"></p>
-        <div class="btn-row">
-          <a class="btn" href="#projects" data-i18n="hero.cta"></a>
-          <a class="btn btn-outline" href="https://github.com/Utku-Dayioglu" target="_blank" rel="noopener">GitHub</a>
-        </div>
+    <!-- Profil kartı: geniş ekranda sağda, kaydırırken yerinde kalır -->
+    <aside class="profile">
+      <p class="eyebrow" data-i18n="hero.hello"></p>
+      <h1>Utku</h1>
+      <p class="lead" data-i18n="hero.tagline"></p>
+      <p class="school" data-i18n="profile.school"></p>
+      <!--
+        FOTOĞRAF EKLEMEK İÇİN: dosyayı (ör. foto.jpg) klasöre koy ve
+        aşağıdaki satırın başındaki ve sonundaki yorum işaretlerini kaldır.
+        <img class="avatar" src="foto.jpg" alt="Utku">
+      -->
+      <div class="btn-row">
+        <a class="btn" href="https://github.com/Utku-Dayioglu" target="_blank" rel="noopener">GitHub</a>
+        <a class="btn btn-outline" href="https://www.linkedin.com/in/utkudayioglu/" target="_blank" rel="noopener">LinkedIn</a>
       </div>
-    </section>
+    </aside>
+
+  <main id="top">
 
     <!-- 2. Hakkımda -->
     <section id="about" class="section">
@@ -117,7 +126,7 @@
         <div class="project-grid">
           <!--
             YENİ PROJE EKLEMEK İÇİN: aşağıdaki <article> bloğunu kopyala,
-            yapıştır, data-i18n anahtarlarını (ör. project2.title) değiştir
+            yapıştır, data-i18n anahtarlarını (ör. project4.title) değiştir
             ve script.js içindeki sözlüğe (tr ve en) bu anahtarları ekle.
           -->
           <article class="card">
@@ -129,6 +138,41 @@
             <!-- Proje adresini değiştirmek istersen href'i güncelle -->
             <a class="btn" href="https://github.com/Utku-Dayioglu/beslenme-sayaci" target="_blank" rel="noopener"
                data-i18n="projects.view"></a>
+          </article>
+        </div>
+
+        <!-- Devam eden projeler: bitince kartı yukarıdaki listeye taşıyabilirsin -->
+        <h3 class="subhead" data-i18n="projects.ongoing"></h3>
+        <div class="project-grid">
+          <article class="card card-wide">
+            <span class="badge" data-i18n="project.badge"></span>
+            <h4 data-i18n="project2.title"></h4>
+            <p data-i18n="project2.desc"></p>
+            <ul class="tags tags-small">
+              <li>Python</li>
+              <li>LLM</li>
+              <li data-i18n="project2.tag.validator"></li>
+              <li>Jev karar modeli</li>
+              <li data-i18n="project2.tag.streamlit"></li>
+              <li>pytest</li>
+              <li>Git / GitHub</li>
+            </ul>
+            <!-- Kod şimdilik özel depoda olduğu için buton yok. Depo açılınca
+                 buraya "projects.view" butonlu bir <a class="btn" href="..."> ekle. -->
+            <p class="note" data-i18n="project2.note"></p>
+          </article>
+
+          <article class="card card-wide">
+            <span class="badge" data-i18n="project.badge"></span>
+            <h4 data-i18n="project3.title"></h4>
+            <p data-i18n="project3.desc"></p>
+            <ul class="tags tags-small">
+              <li>Python</li>
+              <li>CustomTkinter</li>
+              <li>REST API</li>
+              <li>JSON</li>
+            </ul>
+            <p class="note" data-i18n="project3.note"></p>
           </article>
         </div>
       </div>
@@ -147,6 +191,8 @@
     </section>
 
   </main>
+
+  </div>
 
   <footer class="site-footer">
     <div class="container">
