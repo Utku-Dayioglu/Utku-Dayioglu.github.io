@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<!-- lang özelliği script.js tarafından seçilen dile göre güncellenir -->
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <!-- Mobil cihazlarda sayfanın ekran genişliğine uyması için gerekli -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Utku | Portfolyo</title>
+  <meta name="description" content="Utku - Computer Engineering Student">
+
+  <!-- Paylaşım önizlemesi (WhatsApp, LinkedIn vb. linki gösterirken kullanır) -->
+  <meta property="og:title" content="Utku | Portfolyo">
+  <meta property="og:description" content="Computer Engineering Student - Python, Flutter, LLM, Image Processing">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#F3EAD9">
+
+  <!-- Sekme simgesi: ayrı dosya yerine SVG'yi doğrudan buraya gömdük (koyu kahve zemin, terrakota U) -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%233B2F2A'/%3E%3Ctext x='32' y='46' font-family='Arial,sans-serif' font-size='40' font-weight='700' text-anchor='middle' fill='%23E08A5C'%3EU%3C/text%3E%3C/svg%3E">
+
+  <!-- Tema "çakması"nı önlemek için: sayfa çizilmeden ÖNCE kayıtlı/cihaz temasını uygularız -->
+  <script>
+    (function () {
+      var theme = null;
+      try { theme = localStorage.getItem('theme'); } catch (e) {}
+      if (!theme) {
+        theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+
+  <link rel="stylesheet" href="style.css">
+  <!-- defer: HTML tamamen okunduktan sonra çalışır, bu yüzden elemanları bulabilir -->
+  <script src="script.js" defer></script>
+</head>
+<body>
+
+  <!-- Klavyeyle gezenler için: Tab'a basınca çıkar, menüyü atlayıp içeriğe götürür -->
+  <a class="skip-link" href="#top" data-i18n="skip"></a>
+
+  <!-- Üst alan: isim, menü ve ayar butonları -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#top">Utku</a>
+
+      <nav class="nav" aria-label="Main">
+        <a href="#about" data-i18n="nav.about"></a>
+        <a href="#skills" data-i18n="nav.skills"></a>
+        <a href="#experience" data-i18n="nav.experience"></a>
+        <a href="#projects" data-i18n="nav.projects"></a>
+        <a href="#contact" data-i18n="nav.contact"></a>
+      </nav>
+
+      <div class="controls">
+        <!-- Dil geçişi: aktif olan buton script.js ile işaretlenir -->
+        <div class="lang-switch" role="group" aria-label="Language">
+          <button type="button" data-lang="tr">TR</button>
+          <button type="button" data-lang="en">EN</button>
+        </div>
+        <!-- Tema butonu: simgesi script.js ile değişir -->
+        <button type="button" class="theme-btn" id="theme-toggle"
+                data-i18n-label="theme.toggle"></button>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- 1. Giriş -->
+    <section class="hero">
+      <div class="container">
+        <p class="eyebrow" data-i18n="hero.hello"></p>
+        <h1>Utku</h1>
+        <p class="lead" data-i18n="hero.tagline"></p>
+        <div class="btn-row">
+          <a class="btn" href="#projects" data-i18n="hero.cta"></a>
+          <a class="btn btn-outline" href="https://github.com/Utku-Dayioglu" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. Hakkımda -->
+    <section id="about" class="section">
+      <div class="container">
+        <h2 data-i18n="about.title"></h2>
+        <p data-i18n="about.text"></p>
+      </div>
+    </section>
+
+    <!-- 3. Yetenekler -->
+    <section id="skills" class="section">
+      <div class="container">
+        <h2 data-i18n="skills.title"></h2>
+        <ul class="tags">
+          <li>Python</li>
+          <li>Flutter</li>
+          <li data-i18n="skills.llm"></li>
+          <li data-i18n="skills.cv"></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 4. Deneyim -->
+    <section id="experience" class="section">
+      <div class="container">
+        <h2 data-i18n="experience.title"></h2>
+        <h3 data-i18n="experience.role"></h3>
+        <p data-i18n="experience.text"></p>
+      </div>
+    </section>
+
+    <!-- 5. Projeler -->
+    <section id="projects" class="section">
+      <div class="container">
+        <h2 data-i18n="projects.title"></h2>
+
+        <div class="project-grid">
+          <!--
+            YENİ PROJE EKLEMEK İÇİN: aşağıdaki <article> bloğunu kopyala,
+            yapıştır, data-i18n anahtarlarını (ör. project2.title) değiştir
+            ve script.js içindeki sözlüğe (tr ve en) bu anahtarları ekle.
+          -->
+          <article class="card">
+            <h3 data-i18n="project1.title"></h3>
+            <p data-i18n="project1.desc"></p>
+            <ul class="tags tags-small">
+              <li>Flutter</li>
+            </ul>
+            <!-- Proje adresini değiştirmek istersen href'i güncelle -->
+            <a class="btn" href="https://github.com/Utku-Dayioglu/beslenme-sayaci" target="_blank" rel="noopener"
+               data-i18n="projects.view"></a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. İletişim -->
+    <section id="contact" class="section">
+      <div class="container">
+        <h2 data-i18n="contact.title"></h2>
+        <p data-i18n="contact.text"></p>
+        <div class="btn-row">
+          <a class="btn" href="https://github.com/Utku-Dayioglu" target="_blank" rel="noopener">GitHub</a>
+          <a class="btn" href="https://www.linkedin.com/in/utkudayioglu/" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; <span id="year"></span> Utku</p>
+    </div>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,321 @@
+/* ==========================================================
+   1. RENK DEĞİŞKENLERİ (Custom Properties)
+   Renkleri tek yerde tanımlarız; tema değişince sadece bu
+   değerler değişir, geri kalan her yer var(--isim) ile okur.
+   Palet: sıcak bej, koyu kahve ve terrakota - mor ton yok.
+   ========================================================== */
+
+/* Açık tema (varsayılan) */
+:root {
+  --bg: #F3EAD9;          /* sıcak bej: sayfa arka planı */
+  --surface: #FBF4E6;     /* kart ve etiket zemini: arka plandan bir tık açık */
+  --text: #3B2F2A;        /* metin ve başlıklar: koyu kahve */
+  --accent: #B84A22;      /* terrakota: çizgi, buton, çerçeve */
+  --on-accent: #FFF8EC;   /* terrakota ÜZERİNDEKİ yazı: açık krem (kontrast için) */
+  --line: rgba(59, 47, 42, 0.2); /* ince ayırıcı çizgiler */
+}
+
+/* Koyu tema: <html data-theme="dark"> olduğunda üstteki değerlerin yerine geçer */
+:root[data-theme="dark"] {
+  --bg: #241B17;          /* koyu kahve */
+  --surface: #33261F;     /* kartlar: arka plandan bir tık açık */
+  --text: #F1E6D6;        /* krem metin */
+  --accent: #E08A5C;      /* açık terrakota: koyu zeminde daha iyi görünür */
+  --on-accent: #241B17;   /* açık terrakota üstünde koyu kahve yazı */
+  --line: rgba(241, 230, 214, 0.2);
+}
+
+/* ==========================================================
+   2. TEMEL AYARLAR
+   Mobil-önce: aşağıdaki stiller telefon içindir, geniş ekran
+   düzenleri dosyanın sonundaki @media bölümünde.
+   ========================================================== */
+
+/* padding/border genişliğe dahil olsun; hesap yapmak kolaylaşır */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;      /* menü linkleri yumuşak kaysın */
+  scroll-padding-top: 5rem;     /* sabit üst bar başlığı örtmesin */
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-size: 1.0625rem;         /* 17px: rahat okunur */
+  line-height: 1.7;
+  color: var(--text);
+  background-color: var(--bg);
+  /* Tema değişirken renkler yumuşakça geçsin */
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+/* İçeriği ortalayan ve satırı çok uzatmayan kutu */
+.container {
+  width: 100%;
+  max-width: 44rem;
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+
+h1, h2, h3 { line-height: 1.2; margin: 0 0 1rem; }
+h1 { font-size: 2.75rem; letter-spacing: -0.02em; }
+h2 { font-size: 1.5rem; }
+h3 { font-size: 1.15rem; }
+p  { margin: 0 0 1rem; }
+
+a { color: inherit; }
+
+/* Klavye ile gezenler için görünür odak çerçevesi */
+:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* ==========================================================
+   3. ÜST BAR (header)
+   ========================================================== */
+
+.site-header {
+  position: sticky;             /* kaydırınca üstte kalır */
+  top: 0;
+  z-index: 10;
+  background-color: var(--bg);
+  border-bottom: 1px solid var(--line);
+  transition: background-color 0.25s ease, border-color 0.25s ease;
+}
+
+.header-inner {
+  display: flex;
+  flex-wrap: wrap;              /* telefonda sığmazsa alt satıra geç */
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  max-width: 64rem;
+}
+
+.brand {
+  font-weight: 700;
+  font-size: 1.25rem;
+  text-decoration: none;
+}
+
+/* Telefonda menü ikinci satırda, tam genişlikte */
+.nav {
+  order: 3;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;              /* sığmazsa alt satıra geçer, hiçbir öğe kesilmez */
+  gap: 0.25rem 1rem;
+  font-size: 0.95rem;
+}
+.nav a {
+  text-decoration: none;
+  padding: 0.25rem 0;
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+  transition: border-color 0.2s ease;
+}
+.nav a:hover { border-bottom-color: var(--accent); }
+
+.controls { display: flex; align-items: center; gap: 0.5rem; }
+
+/* TR / EN butonları */
+.lang-switch {
+  display: flex;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.lang-switch button {
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.35rem 0.75rem;
+  color: var(--text);
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+/* Aktif dil: altın zemin + koyu mavi yazı */
+.lang-switch button[aria-pressed="true"] {
+  background-color: var(--accent);
+  color: var(--on-accent);
+}
+
+.theme-btn {
+  font-size: 1.1rem;
+  width: 2.25rem;
+  height: 2.25rem;
+  line-height: 1;
+  color: var(--text);
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+.theme-btn:hover { border-color: var(--accent); }
+
+/* ==========================================================
+   4. BÖLÜMLER
+   ========================================================== */
+
+.hero { padding: 5rem 0 3rem; }
+.eyebrow { margin-bottom: 0.25rem; font-size: 1rem; opacity: 0.8; }
+.lead { font-size: 1.25rem; max-width: 34rem; }
+
+.section { padding: 3rem 0; }
+/* Başlığın altına kısa altın çizgi: altın burada yazı değil, süs */
+.section h2::after {
+  content: "";
+  display: block;
+  width: 2.5rem;
+  height: 4px;
+  margin-top: 0.5rem;
+  background-color: var(--accent);
+  border-radius: 2px;
+}
+
+/* Yetenek etiketleri */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.tags li {
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  /* Altın dolgu yerine açık zemin + altın çerçeve: sayfa daha sakin görünür */
+  background-color: var(--surface);
+  color: var(--text);
+  border: 1.5px solid var(--accent);
+}
+.tags-small { margin-bottom: 1.25rem; }
+.tags-small li { font-size: 0.8rem; padding: 0.2rem 0.7rem; }
+
+/* ==========================================================
+   5. PROJE KARTLARI
+   Grid: telefonda tek sütun; geniş ekranda 2 sütun (aşağıda).
+   Yeni kart eklemek için HTML'deki <article class="card"> yeter.
+   ========================================================== */
+
+.project-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+  margin-top: 1.5rem;
+}
+
+.card {
+  padding: 1.5rem;
+  background-color: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  transition: transform 0.2s ease, border-color 0.2s ease,
+              background-color 0.25s ease;
+}
+.card:hover {
+  transform: translateY(-3px);  /* hafif yukarı kalkma */
+  border-color: var(--accent);
+}
+
+/* Butonlar: altın zemin, koyu mavi yazı */
+.btn {
+  display: inline-block;
+  padding: 0.55rem 1.2rem;
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--on-accent);
+  background-color: var(--accent);
+  border-radius: 8px;
+  transition: transform 0.2s ease;
+}
+.btn:hover { transform: translateY(-2px); }
+
+/* Yan yana butonlar; telefonda sığmazsa alt satıra geçer */
+.btn-row { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+
+/* İkincil buton: içi boş, çerçeveli (altın dolgu yok, yazı ana renk) */
+.btn-outline {
+  color: var(--text);
+  background-color: transparent;
+  border: 2px solid var(--accent);
+  padding: calc(0.55rem - 2px) calc(1.2rem - 2px);
+}
+.hero .btn-row { margin-top: 1.75rem; }
+
+/* Menüde şu an görünen bölümün altı altın çizgili */
+.nav a[aria-current="true"] { border-bottom-color: var(--accent); }
+
+/* "İçeriğe geç" bağlantısı: normalde ekran dışında, odaklanınca görünür */
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -4rem;
+  z-index: 20;
+  padding: 0.5rem 1rem;
+  font-weight: 600;
+  color: var(--on-accent);
+  background-color: var(--accent);
+  border-radius: 8px;
+}
+.skip-link:focus { top: 0.75rem; }
+
+/* Kaydırınca beliren bölümler.
+   ".js" sınıfını script.js ekler; JS çalışmazsa içerik hep görünür kalır. */
+.js .reveal {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.js .reveal.visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ==========================================================
+   6. ALT BİLGİ
+   ========================================================== */
+
+.site-footer {
+  padding: 2rem 0;
+  margin-top: 2rem;
+  border-top: 1px solid var(--line);
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+.site-footer p { margin: 0; }
+
+/* ==========================================================
+   7. GENİŞ EKRAN (tablet ve üstü)
+   min-width: telefon düzeninin ÜSTÜNE ekleme yapar.
+   ========================================================== */
+
+@media (min-width: 48em) {
+  h1 { font-size: 3.75rem; }
+  h2 { font-size: 1.75rem; }
+
+  .header-inner { flex-wrap: nowrap; }
+  .nav { order: 0; width: auto; }   /* menü tek satırda, ortada */
+
+  .hero { padding: 7rem 0 4rem; }
+  .section { padding: 4rem 0; }
+
+  .project-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* Hareketi azaltmak isteyen kullanıcılar için animasyonları kapat */
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; scroll-behavior: auto !important; }
+  .card:hover, .btn:hover { transform: none; }
+  .js .reveal { opacity: 1; transform: none; }
+}
